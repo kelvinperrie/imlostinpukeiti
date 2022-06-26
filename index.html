@@ -24,16 +24,16 @@
       <div id="map" class="map"></div>
       <script type="text/javascript">
 
-        var source = new ol.source.Vector({
-          url: 'data/traildataRaw.gpx',
-          format: new ol.format.GPX(),
-        })
+        // var source = new ol.source.Vector({
+        //   url: 'data/traildataRaw.gpx',
+        //   format: new ol.format.GPX(),
+        // })
 
 
 
       const vector = new ol.layer.Vector({
         source: new ol.source.Vector({
-          url: 'data/traildataRaw.gpx',
+          url: 'https://imlostinpukeiti.netlify.app/data/traildataRaw.gpx',
           format: new ol.format.GPX(),
         }),
         style: function (feature) {
