@@ -21,15 +21,9 @@
       <header>
 
       </header>
+      <div id="info"></div>
       <div id="map" class="map"></div>
       <script type="text/javascript">
-
-        // var source = new ol.source.Vector({
-        //   url: 'data/traildataRaw.gpx',
-        //   format: new ol.format.GPX(),
-        // })
-
-
 
       const vector = new ol.layer.Vector({
         source: new ol.source.Vector({
@@ -37,7 +31,17 @@
           format: new ol.format.GPX(),
         }),
         style: function (feature) {
-          return style[feature.getGeometry().getType()];
+          var theType = feature.getGeometry().getType();
+          console.log(theType);
+          //return ol.style[theType];
+
+          var myStyle = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+              color: '#0f0',
+              width: 3,
+            }),
+          })
+          return myStyle;
         },
       });
 
@@ -61,6 +65,38 @@
           })
           //-39.193435, 173.988554
       });
+
+
+      const displayFeatureInfo = function (pixel) {
+        const features = [];
+        map.forEachFeatureAtPixel(pixel, function (feature) {
+          features.push(feature);
+          console.log(feature);
+        });
+        if (features.length > 0) {
+          const info = [];
+          let i, ii;
+          for (i = 0, ii = features.length; i < ii; ++i) {
+            //info.push(features[i].get('desc'));
+            info.push(features[i].A.name);
+          }
+          document.getElementById('info').innerHTML = info.join(', ') || '(unknown)';
+          map.getTargetElement().style.cursor = 'pointer';
+        } else {
+          document.getElementById('info').innerHTML = '&nbsp;';
+          map.getTargetElement().style.cursor = '';
+        }
+      };
+
+      map.on('pointermove', function (evt) {
+        if (evt.dragging) {
+          return;
+        }
+        const pixel = map.getEventPixel(evt.originalEvent);
+        displayFeatureInfo(pixel);
+      });
+
+
       </script>
     </div>
     <script src="data/traildata.js"></script>
