@@ -1,4 +1,7 @@
 
+// var pathColours = ["#000", "#f00"];
+// var colourIndex = 0;
+
 // our paths
 const vector = new ol.layer.Vector({
     source: new ol.source.Vector({
@@ -8,9 +11,15 @@ const vector = new ol.layer.Vector({
     }),
     style: function (feature) {
         //var theType = feature.getGeometry().getType();
+        // var colourToUse = pathColours[colourIndex];
+        // colourIndex++;
+        // if(colourIndex== pathColours.length) {
+        //     colourIndex = 0;
+        // }
+
         var myStyle = new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: '#000',
+                color: "#000",
                 width: 3,
             }),
         })
