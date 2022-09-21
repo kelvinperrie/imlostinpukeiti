@@ -26,6 +26,32 @@ const vector = new ol.layer.Vector({
         return myStyle;
     },
 });
+const vectorWaypoints = new ol.layer.Vector({
+    source: new ol.source.Vector({
+        // CORS is a dick if you try to do this from a local file, so set it to what it will be when deployed
+        url: 'https://imlostinpukeiti.vercel.app/data/kiwiScanWaypoints.gpx',
+        format: new ol.format.GPX(),
+    }),
+    style: function (feature) {
+        const fill = new ol.style.Fill({
+            color: 'rgba(255,255,255,0.4)',
+          });
+          const stroke = new ol.style.Stroke({
+            color: '#ff0000', //'#3399CC'
+            width: 3,
+          });
+        var myStyle = new ol.style.Style({
+            image: new ol.style.Circle({
+                fill: fill,
+                stroke: stroke,
+                radius: 8,
+            }),
+            fill: fill,
+            stroke: stroke,
+        })
+        return myStyle;
+    },
+});
 
 // our nice picture
 const tile = new ol.layer.Tile({
@@ -35,7 +61,7 @@ const tile = new ol.layer.Tile({
 // set up the map, giving it the picture layer and the paths layer and centering on pukeiti
 map = new ol.Map({
     target: 'map',
-    layers: [tile,vector],
+    layers: [tile,vector,vectorWaypoints],  
     view: new ol.View({
         center: ol.proj.fromLonLat([173.988,-39.193]),
         zoom: 15
@@ -52,8 +78,14 @@ const displayFeatureInfo = function (pixel) {
         const info = [];
         let i, ii;
         for (i = 0, ii = features.length; i < ii; ++i) {
-        //info.push(features[i].get('desc'));
-        info.push(features[i].A.name);
+            var props = features[i].getGeometry().getProperties();
+
+            var theType = features[i].getGeometry().getType();
+            // either Point or MultiLineString
+
+            console.log(theType)
+            //info.push(features[i].get('desc'));
+            info.push(features[i].A.name + "<br/>" + theType);
         }
         document.getElementById('info').innerHTML = info.join(', ') || '(unknown)';
         map.getTargetElement().style.cursor = 'pointer';
@@ -70,6 +102,11 @@ map.on('pointermove', function (evt) {
         return;
     }
     $("#info").css({ top: (evt.originalEvent.offsetY + 20) + "px", left: evt.originalEvent.offsetX + "px" });
+    // console.log("*****************************")
+    // console.log(evt)
+
+    // console.log(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
+
     const pixel = map.getEventPixel(evt.originalEvent);
     displayFeatureInfo(pixel);
 });
