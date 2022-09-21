@@ -6,7 +6,7 @@
 const vector = new ol.layer.Vector({
     source: new ol.source.Vector({
         // CORS is a dick if you try to do this from a local file, so set it to what it will be when deployed
-        url: 'https://imlostinpukeiti.vercel.app/data/traildataRaw.gpx',
+        url: 'https://imlostinpukeiti.vercel.app/data/traildataRaw2.gpx',
         format: new ol.format.GPX(),
     }),
     style: function (feature) {
