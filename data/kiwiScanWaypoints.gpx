@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1" creator="New Zealand Maps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata>
+<name>5_Waypoints_20220921-1407</name>
+<link href="http://www.atlogis.com">
+<text>ATLOGIS</text>
+</link>
+</metadata>
+<wpt lat="-39.189524511" lon="173.973999023">
+<name>scan for Spencer great, pourewa okish</name>
+<time>2022-09-10T22:45:20Z</time>
+</wpt>
+
+<wpt lat="-39.19223531" lon="173.976380825">
+<name>scan for puanga, aroha - great</name>
+<time>2022-09-10T22:27:18Z</time>
+</wpt>
+
+<wpt lat="-39.193149972" lon="173.975157738">
+<name>scan for ngapikitanga</name>
+<time>2022-09-10T22:03:50Z</time>
+</wpt>
+
+<wpt lat="-39.193133342" lon="173.974685669">
+<name>scan for myiagi</name>
+<time>2022-09-10T21:52:47Z</time>
+</wpt>
+
+<wpt lat="-39.191603354" lon="173.973183632">
+<name>scanning for Spencer, pourewa, puanga</name>
+<time>2022-09-10T21:32:08Z</time>
+</wpt>
+
+</gpx>
