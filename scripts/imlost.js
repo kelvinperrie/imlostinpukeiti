@@ -87,7 +87,7 @@ map = new ol.Map({
     target: 'map',
     layers: [tile,vector,vectorWaypoints],  
     view: new ol.View({
-        center: ol.proj.fromLonLat([173.988,-39.193]),
+        center: ol.proj.fromLonLat([173.980,-39.193]),
         zoom: 15
     })
 });
@@ -98,20 +98,17 @@ const displayFeatureInfo = function (pixel) {
     map.forEachFeatureAtPixel(pixel, function (feature) {
         features.push(feature);
     }, { hitTolerance: 5, });
-    console.log(features)
+
     if (features.length > 0) {
         const info = [];
         let i, ii;
         for (i = 0, ii = features.length; i < ii; ++i) {
-            //var props = features[i].getGeometry().getProperties();
-
             var theType = features[i].getGeometry().getType();
             // either Point or MultiLineString
             let hover = features[i].A.name;
             if(theType === "Point") {
                 var coordinates = features[i].getGeometry().getCoordinates();
                 var properShit = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
-                //console.log(properShit)
                 hover += "<br/>@ " + properShit[0] + "," + properShit[1];
             }
             //info.push(features[i].get('desc'));
@@ -128,8 +125,8 @@ const displayFeatureInfo = function (pixel) {
 };
 
 map.on('click', function(evt) {
-    console.log("that's a click")
-    $("#info").css({ top: (evt.originalEvent.pageY) + "px", left: evt.originalEvent.pageX + "px" });
+    let x = evt.originalEvent.pageX - ($("#info").width() / 2);
+    $("#info").css({ top: (evt.originalEvent.pageY) + "px", left: x + "px" });
     const pixel = map.getEventPixel(evt.originalEvent);
     displayFeatureInfo(pixel);
 });
