@@ -97,7 +97,7 @@ const displayFeatureInfo = function (pixel) {
     const features = [];
     map.forEachFeatureAtPixel(pixel, function (feature) {
         features.push(feature);
-    });
+    }, { hitTolerance: 5, });
     console.log(features)
     if (features.length > 0) {
         const info = [];
