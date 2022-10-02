@@ -109,7 +109,7 @@ const displayFeatureInfo = function (pixel) {
             if(theType === "Point") {
                 var coordinates = features[i].getGeometry().getCoordinates();
                 var properShit = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
-                hover += "<br/>@ " + properShit[0] + "," + properShit[1];
+                hover += "<br/>@ " + properShit[0] + " ," + properShit[1];
             }
             hover +=  "</li>";
             //info.push(features[i].get('desc'));
