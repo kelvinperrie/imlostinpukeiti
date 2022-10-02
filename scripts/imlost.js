@@ -105,16 +105,17 @@ const displayFeatureInfo = function (pixel) {
         for (i = 0, ii = features.length; i < ii; ++i) {
             var theType = features[i].getGeometry().getType();
             // either Point or MultiLineString
-            let hover = features[i].A.name;
+            let hover = "<li>" + features[i].A.name;
             if(theType === "Point") {
                 var coordinates = features[i].getGeometry().getCoordinates();
                 var properShit = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
                 hover += "<br/>@ " + properShit[0] + "," + properShit[1];
             }
+            hover +=  "</li>";
             //info.push(features[i].get('desc'));
             info.push(hover);
         }
-        document.getElementById('info').innerHTML = info.join('<br/>') || '(unknown)';
+        document.getElementById('info').innerHTML = "<ul>"+ (info.join('') || '(unknown)') +"</ul>";
         map.getTargetElement().style.cursor = 'pointer';
         $("#info").show();
     } else {
