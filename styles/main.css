@@ -44,3 +44,9 @@ ul {
   margin-block-start: .25em;
   margin-block-end: .25em;
 }
+
+#github-link {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
