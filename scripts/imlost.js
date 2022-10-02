@@ -53,6 +53,30 @@ const vectorWaypoints = new ol.layer.Vector({
     },
 });
 
+const vectorTopo = new ol.layer.Vector({
+    source: new ol.source.Vector({
+        // CORS is a dick if you try to do this from a local file, so set it to what it will be when deployed
+        format: new ol.format.TopoJSON(),
+    })
+});
+
+// var waterVectorSource = new ol.source.Tile({
+//     format: new ol.format.TopoJSON(),
+//     projection: 'EPSG:3857',
+//     tileGrid: new ol.tilegrid.XYZ({
+//         maxZoom: 19
+//     }),
+// })
+
+// var imageVectorSource = new ol.source.Image({
+//     source:waterVectorSource
+// });
+
+// var imageLayer = new ol.layer.Image({
+//     source:imageVectorSource
+// });
+
+
 // our nice picture
 const tile = new ol.layer.Tile({
     source: new ol.source.OSM()
@@ -82,12 +106,17 @@ const displayFeatureInfo = function (pixel) {
 
             var theType = features[i].getGeometry().getType();
             // either Point or MultiLineString
-
-            console.log(theType)
+            let hover = features[i].A.name;
+            if(theType === "Point") {
+                var coordinates = features[i].getGeometry().getCoordinates();
+                var properShit = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
+                console.log(properShit)
+                hover += "<br/>@ " + properShit[0] + "," + properShit[1];
+            }
             //info.push(features[i].get('desc'));
-            info.push(features[i].A.name + "<br/>" + theType);
+            info.push(hover);
         }
-        document.getElementById('info').innerHTML = info.join(', ') || '(unknown)';
+        document.getElementById('info').innerHTML = info.join('<br/>') || '(unknown)';
         map.getTargetElement().style.cursor = 'pointer';
         $("#info").show();
     } else {
