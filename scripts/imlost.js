@@ -64,10 +64,19 @@ const tile = new ol.layer.Tile({
     source: new ol.source.OSM()
 });
 
+const openTopo = new ol.layer.Tile({
+    title: 'OSM',
+    type: 'base',
+    visible: true,
+    source: new ol.source.XYZ({
+        url: 'https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+    })
+});
+
 // set up the map, giving it the picture layer and the paths layer and centering on pukeiti
 map = new ol.Map({
     target: 'map',
-    layers: [tile,vectorTracks,vectorWaypoints],  
+    layers: [openTopo,vectorTracks,vectorWaypoints],  
     view: new ol.View({
         center: ol.proj.fromLonLat([173.980,-39.193]),
         zoom: 15
