@@ -129,7 +129,7 @@ const displayFeatureInfo = function (pixel) {
 
 map.on('click', function(evt) {
     console.log("that's a click")
-    $("#info").css({ top: (evt.originalEvent.screenY) + "px", left: evt.originalEvent.screenX + "px" });
+    $("#info").css({ top: (evt.originalEvent.pageY) + "px", left: evt.originalEvent.pageX + "px" });
     const pixel = map.getEventPixel(evt.originalEvent);
     displayFeatureInfo(pixel);
 });
