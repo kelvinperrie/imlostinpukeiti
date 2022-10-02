@@ -25,6 +25,13 @@ header {
   width: 250px;
 }
 
+.info-mobile {
+  margin: auto;
+  left: 0;
+  right: 0;
+
+}
+
 #map {
   position: absolute;
 }

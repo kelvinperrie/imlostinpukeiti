@@ -3,7 +3,7 @@
 // var colourIndex = 0;
 
 // our paths
-const vector = new ol.layer.Vector({
+const vectorTracks = new ol.layer.Vector({
     source: new ol.source.Vector({
         // CORS is a dick if you try to do this from a local file, so set it to what it will be when deployed
         url: 'https://imlostinpukeiti.vercel.app/data/traildataRaw2.gpx',
@@ -53,29 +53,11 @@ const vectorWaypoints = new ol.layer.Vector({
     },
 });
 
-const vectorTopo = new ol.layer.Vector({
-    source: new ol.source.Vector({
-        // CORS is a dick if you try to do this from a local file, so set it to what it will be when deployed
-        format: new ol.format.TopoJSON(),
-    })
-});
-
-// var waterVectorSource = new ol.source.Tile({
-//     format: new ol.format.TopoJSON(),
-//     projection: 'EPSG:3857',
-//     tileGrid: new ol.tilegrid.XYZ({
-//         maxZoom: 19
-//     }),
-// })
-
-// var imageVectorSource = new ol.source.Image({
-//     source:waterVectorSource
+// const vectorTopo = new ol.layer.Vector({
+//     source: new ol.source.Vector({
+//         format: new ol.format.TopoJSON(),
+//     })
 // });
-
-// var imageLayer = new ol.layer.Image({
-//     source:imageVectorSource
-// });
-
 
 // our nice picture
 const tile = new ol.layer.Tile({
@@ -85,7 +67,7 @@ const tile = new ol.layer.Tile({
 // set up the map, giving it the picture layer and the paths layer and centering on pukeiti
 map = new ol.Map({
     target: 'map',
-    layers: [tile,vector,vectorWaypoints],  
+    layers: [tile,vectorTracks,vectorWaypoints],  
     view: new ol.View({
         center: ol.proj.fromLonLat([173.980,-39.193]),
         zoom: 15
@@ -126,8 +108,17 @@ const displayFeatureInfo = function (pixel) {
 };
 
 map.on('click', function(evt) {
-    let x = evt.originalEvent.pageX - ($("#info").width() / 2);
-    $("#info").css({ top: (evt.originalEvent.pageY) + "px", left: x + "px" });
+    let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+    if(isMobile) {
+        $("#info").css({ top: (evt.originalEvent.pageY) + "px", left: 0 });
+        $("#info").addClass("info-mobile");
+    } else {
+        let x = evt.originalEvent.pageX - ($("#info").width() / 2);
+        $("#info").css({ top: (evt.originalEvent.pageY + 20) + "px", left: x + "px" });
+        $("#info").removeClass("info-mobile");
+    }
+
     const pixel = map.getEventPixel(evt.originalEvent);
     displayFeatureInfo(pixel);
 });
