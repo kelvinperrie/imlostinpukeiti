@@ -19,7 +19,7 @@ const vectorTracks = new ol.layer.Vector({
 
         var myStyle = new ol.style.Style({
             stroke: new ol.style.Stroke({
-                color: "#000",
+                color: "#ff0",
                 width: 3,
             }),
         })
