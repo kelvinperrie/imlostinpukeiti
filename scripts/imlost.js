@@ -98,11 +98,12 @@ const displayFeatureInfo = function (pixel) {
     map.forEachFeatureAtPixel(pixel, function (feature) {
         features.push(feature);
     });
+    console.log(features)
     if (features.length > 0) {
         const info = [];
         let i, ii;
         for (i = 0, ii = features.length; i < ii; ++i) {
-            var props = features[i].getGeometry().getProperties();
+            //var props = features[i].getGeometry().getProperties();
 
             var theType = features[i].getGeometry().getType();
             // either Point or MultiLineString
@@ -110,7 +111,7 @@ const displayFeatureInfo = function (pixel) {
             if(theType === "Point") {
                 var coordinates = features[i].getGeometry().getCoordinates();
                 var properShit = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
-                console.log(properShit)
+                //console.log(properShit)
                 hover += "<br/>@ " + properShit[0] + "," + properShit[1];
             }
             //info.push(features[i].get('desc'));
@@ -125,6 +126,13 @@ const displayFeatureInfo = function (pixel) {
         $("#info").hide();
     }
 };
+
+map.on('click', function(evt) {
+    console.log("that's a click")
+    $("#info").css({ top: (evt.originalEvent.offsetY + 20) + "px", left: evt.originalEvent.offsetX + "px" });
+    const pixel = map.getEventPixel(evt.originalEvent);
+    displayFeatureInfo(pixel);
+});
 
 map.on('pointermove', function (evt) {
     if (evt.dragging) {
