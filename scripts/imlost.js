@@ -129,21 +129,21 @@ const displayFeatureInfo = function (pixel) {
 
 map.on('click', function(evt) {
     console.log("that's a click")
-    $("#info").css({ top: (evt.originalEvent.offsetY + 20) + "px", left: evt.originalEvent.offsetX + "px" });
+    $("#info").css({ top: (evt.originalEvent.screenY) + "px", left: evt.originalEvent.screenX + "px" });
     const pixel = map.getEventPixel(evt.originalEvent);
     displayFeatureInfo(pixel);
 });
 
-map.on('pointermove', function (evt) {
-    if (evt.dragging) {
-        return;
-    }
-    $("#info").css({ top: (evt.originalEvent.offsetY + 20) + "px", left: evt.originalEvent.offsetX + "px" });
-    // console.log("*****************************")
-    // console.log(evt)
+// map.on('pointermove', function (evt) {
+//     if (evt.dragging) {
+//         return;
+//     }
+//     $("#info").css({ top: (evt.originalEvent.offsetY + 20) + "px", left: evt.originalEvent.offsetX + "px" });
+//     // console.log("*****************************")
+//     // console.log(evt)
 
-    // console.log(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
+//     // console.log(ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326'));
 
-    const pixel = map.getEventPixel(evt.originalEvent);
-    displayFeatureInfo(pixel);
-});
+//     const pixel = map.getEventPixel(evt.originalEvent);
+//     displayFeatureInfo(pixel);
+// });
